@@ -8,14 +8,12 @@ from torch.autograd import Variable
 from domainbed import pixmix_utils as utils
 import torchvision.transforms as T
 from torchvision.utils import make_grid
-# import matplotlib.pyplot as plt
-
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 from domainbed.lib.cvt import tiny_cvt, small_cvt
 from domainbed.lib.t2t_vit import t2t_vit_t_14
 from domainbed.lib.t2t_vit import *
-from domainbed.T2T.utils import load_for_transfer_learning
+from domainbed.lib.t2t_utils import load_for_transfer_learning
 import random
 
 trans1 = T.ToTensor()
