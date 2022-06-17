@@ -45,11 +45,12 @@ else:
     device = "cpu"
 ALGORITHMS = [
     'ERM',
-    'T2T_ViT_small',
-    'CVT_RB_Small',
-    'CVT_Small',
-    'ViT_RB_small',
-    'DeiT_small',
+    'ERM_ViT_T2T',
+    'ERM_ViT_self_dist_T2T',
+    'ERM_ViT_CVT',
+    'ERM_ViT_self_dist_CVT',
+    'ERM_ViT_DeiT',
+    'ERM_ViT_self_dist_DeiT',
     'Fish',
     'IRM',
     'GroupDRO',
@@ -149,21 +150,20 @@ class ERM(Algorithm):
         return self.network(x)
 
 
-class T2T_ViT_small(Algorithm):
+class ERM_ViT_T2T(Algorithm):
 
     def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(T2T_ViT_small, self).__init__(input_shape, num_classes, num_domains,
+        super(ERM_ViT_T2T, self).__init__(input_shape, num_classes, num_domains,
                                             hparams)
 
         # create model
         self.network = t2t_vit_t_14()
 
         # load the pretrained weights
-        pretrained_path = "./domainbed/pretrained/81.7_T2T_ViTt_14.pth"
+        pretrained_path = "./domainbed/pretrained_models/81.7_T2T_ViTt_14.pth"
         load_for_transfer_learning(self.network, pretrained_path, use_ema=True, strict=True, num_classes=1000)
         self.network.head = nn.Linear(384, num_classes)
 
-        # optimizer AdamW same as paper
         self.optimizer = torch.optim.AdamW(
             self.network.parameters(),
             lr=self.hparams["lr"],
@@ -189,11 +189,10 @@ class T2T_ViT_small(Algorithm):
         return out
 
 
-class T2T_ViT_RB_small(Algorithm):
-    """ DieT_T_D"""
+class ERM_ViT_self_dist_T2T(Algorithm):
 
     def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(T2T_ViT_RB_small, self).__init__(input_shape, num_classes, num_domains,
+        super(ERM_ViT_self_dist_T2T, self).__init__(input_shape, num_classes, num_domains,
                                                hparams)
         self.alpha_rb_loss = self.hparams['RB_loss_weight']
         self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
@@ -205,7 +204,7 @@ class T2T_ViT_RB_small(Algorithm):
         pretrained_path = "./domainbed/pretrained/81.7_T2T_ViTt_14.pth"
         load_for_transfer_learning(self.network, pretrained_path, use_ema=True, strict=True, num_classes=1000)
 
-        self.network.head = nn.Linear(384, num_classes)  # reinitialize the last layer
+        self.network.head = nn.Linear(384, num_classes)
 
         self.optimizer = torch.optim.AdamW(self.network.parameters(),
                                            lr=self.hparams["lr"],
@@ -215,14 +214,12 @@ class T2T_ViT_RB_small(Algorithm):
     def update(self, minibatches, unlabeled=None):
         all_x = torch.cat([x for x, y in minibatches])
         all_y = torch.cat([y for x, y in minibatches])
-        # self.iter += 1
 
         output, output_rb = self.predict(all_x)
         base_loss = F.cross_entropy(output, all_y)
 
         rb_loss = F.kl_div(
             F.log_softmax(output_rb / self.alpha_KL_temp, dim=1),
-            ## RB output cls token, original network output cls token
             F.log_softmax(output / self.alpha_KL_temp, dim=1),
             reduction='sum',
             log_target=True
@@ -242,19 +239,16 @@ class T2T_ViT_RB_small(Algorithm):
         return self.network(x)
 
 
-class CVT_Small(Algorithm):
-    """ DieT S
-    """
+class ERM_ViT_CVT(Algorithm):
 
     def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(CVT_Small, self).__init__(input_shape, num_classes, num_domains,
+        super(ERM_ViT_CVT, self).__init__(input_shape, num_classes, num_domains,
                                         hparams)
 
         self.network = small_cvt(pretrained=True)
 
         self.network.head = nn.Linear(384, num_classes)
 
-        # optimizer AdamW same as paper
         self.optimizer = torch.optim.AdamW(
             self.network.parameters(),
             lr=self.hparams["lr"],
@@ -279,13 +273,10 @@ class CVT_Small(Algorithm):
         out = self.network(x)
         return out[-1]
 
-
-class CVT_RB_Small(Algorithm):
-    """ DieT S
-    """
+class ERM_ViT_self_dist_CVT(Algorithm):
 
     def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(CVT_RB_Small, self).__init__(input_shape, num_classes, num_domains,
+        super(ERM_ViT_self_dist_CVT, self).__init__(input_shape, num_classes, num_domains,
                                            hparams)
         self.alpha_rb_loss = self.hparams['RB_loss_weight']
         self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
@@ -294,7 +285,6 @@ class CVT_RB_Small(Algorithm):
 
         self.network.head = nn.Linear(384, num_classes)
 
-        # optimizer AdamW same as paper
         self.optimizer = torch.optim.AdamW(
             self.network.parameters(),
             lr=self.hparams["lr"],
@@ -310,14 +300,12 @@ class CVT_RB_Small(Algorithm):
         base_loss = F.cross_entropy(output, all_y)
         rb_loss = F.kl_div(
             F.log_softmax(output_rb / self.alpha_KL_temp, dim=1),
-            ## RB output cls token, original network output cls token
             F.log_softmax(output / self.alpha_KL_temp, dim=1),
             reduction='sum',
             log_target=True
         ) * (self.alpha_KL_temp * self.alpha_KL_temp) / output_rb.numel()
 
         # Final_loss
-
         loss = base_loss + self.alpha_rb_loss * rb_loss
 
         self.optimizer.zero_grad()
@@ -329,129 +317,59 @@ class CVT_RB_Small(Algorithm):
     def predict_Train(self, x):
         out = self.network(x)
         block_number = random.randint(0, len(out) - 1)
-        # print(len(out), 'length')
         return out[-1], out[block_number]
 
     def predict(self, x):
         out = self.network(x)
         return out[-1]
 
-class ViT_RB_small(Algorithm):
-    """ DieT_T_D"""
+class ERM_ViT_DeiT(Algorithm):
 
     def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(ViT_RB_small, self).__init__(input_shape, num_classes, num_domains,
+        super(ERM_ViT_DeiT, self).__init__(input_shape, num_classes, num_domains,
+                                         hparams)
+
+        self.network = torch.hub.load('./domainbed/deit-main', 'deit_small_patch16_224',
+                                      pretrained=True, source='local')
+
+        self.network.head = nn.Linear(384, num_classes)
+
+        self.optimizer = torch.optim.AdamW(
+            self.network.parameters(),
+            lr=self.hparams["lr"],
+            weight_decay=self.hparams['weight_decay']
+        )
+
+    def update(self, minibatches, unlabeled=None):
+        all_x = torch.cat([x for x, y in minibatches])
+        all_y = torch.cat([y for x, y in minibatches])
+
+        output = self.predict(all_x)
+
+        loss = F.cross_entropy(output, all_y)
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        return {'loss': loss.item()}
+
+    def predict(self, x):
+        return self.network(x, skip_random_blk=False, rng=(0, 11))
+
+class ERM_ViT_self_dist_DeiT(Algorithm):
+
+    def __init__(self, input_shape, num_classes, num_domains, hparams):
+        super(ERM_ViT_self_dist_DeiT, self).__init__(input_shape, num_classes, num_domains,
                                            hparams)
         self.alpha_rb_loss = self.hparams['RB_loss_weight']
         self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
 
         self.network = torch.hub.load('./domainbed/deit-main',
                                       'deit_small_self_distilled_patch16_224_RB', pretrained=True,
-                                      source='local')  # Random Block Verify
+                                      source='local') 
 
-        self.network.head = nn.Linear(384, num_classes)  # reinitialize the last layer
-
-        self.optimizer = torch.optim.AdamW(self.network.parameters(),
-                                           lr=self.hparams["lr"],
-                                           weight_decay=self.hparams['weight_decay']
-                                           )
-
-    def update(self, minibatches, unlabeled=None):
-        all_x = torch.cat([x for x, y in minibatches])
-        all_y = torch.cat([y for x, y in minibatches])
-
-        output, output_rb = self.predict(all_x)
-        base_loss = F.cross_entropy(output, all_y)
-
-        rb_loss = F.kl_div(
-            F.log_softmax(output_rb / self.alpha_KL_temp, dim=1),
-            ## RB output cls token, original network output cls token
-            F.log_softmax(output / self.alpha_KL_temp, dim=1),
-            reduction='sum',
-            log_target=True
-        ) * (self.alpha_KL_temp * self.alpha_KL_temp) / output_rb.numel()
-
-        # Final_loss
-
-        loss = base_loss + self.alpha_rb_loss * rb_loss
-
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        return {'loss': loss.item()}
-
-    def predict(self, x):
-        return self.network(x)
-
-
-# base (ours)
-class ViT_RB_base(Algorithm):
-    """ DeiT_Random_Block_Base"""
-
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(ViT_RB_base, self).__init__(input_shape, num_classes, num_domains,
-                                          hparams)
-
-        self.alpha_rb_loss = self.hparams['RB_loss_weight']
-        self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
-
-        self.network = torch.hub.load('/home/computervision1/DG_new_idea/domainbed/deit-main',
-                                      'deit_base_distilled_patch16_224_RB_Verify', pretrained=True, source='local')
-
-        self.network.head = nn.Linear(768, num_classes)
-        self.network.head_dist = nn.Linear(768, num_classes)  # reinitialize the last layer
-
-        self.optimizer = torch.optim.AdamW(self.network.parameters(),
-                                           lr=self.hparams["lr"],
-                                           weight_decay=self.hparams['weight_decay']
-                                           )
-
-    def update(self, minibatches, unlabeled=None):
-        all_x = torch.cat([x for x, y in minibatches])
-        all_y = torch.cat([y for x, y in minibatches])
-
-        output, outputs_kd, output_rb, outputs_kd_rb = self.predict(all_x)
-        base_loss = F.cross_entropy(output, all_y)
-
-        # t = 3.0
-        rb_loss = F.kl_div(
-            F.log_softmax(output_rb / self.alpha_KL_temp, dim=1),
-            F.log_softmax(output / self.alpha_KL_temp, dim=1),
-            reduction='sum',
-            log_target=True
-        ) * (self.alpha_KL_temp * self.alpha_KL_temp) / output_rb.numel()
-
-        # Final_loss
-
-        loss = base_loss + self.alpha_rb_loss * rb_loss
-
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        return {'loss': loss.item()}
-
-    def predict(self, x):
-        return self.network(x)
-
-
-
-class ViT_RB_tiny(Algorithm):
-    """ DieT_Tiny"""
-
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(ViT_RB_tiny, self).__init__(input_shape, num_classes, num_domains,
-                                          hparams)
-        self.alpha_rb_loss = self.hparams['RB_loss_weight']
-        self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
-
-        self.network = torch.hub.load('/home/computervision1/DG_new_idea/domainbed/deit-main',
-                                      'deit_tiny_self_distilled_patch16_224_RB', pretrained=True,
-                                      source='local')  # Random Block Verify
-
-        self.network.head = nn.Linear(192, num_classes)
-        # reinitialize the last layer
+        self.network.head = nn.Linear(384, num_classes)
 
         self.optimizer = torch.optim.AdamW(self.network.parameters(),
                                            lr=self.hparams["lr"],
@@ -484,335 +402,6 @@ class ViT_RB_tiny(Algorithm):
 
     def predict(self, x):
         return self.network(x)
-
-
-class DeiT_tiny(Algorithm):
-    """ DieT S
-    """
-
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(DeiT_tiny, self).__init__(input_shape, num_classes, num_domains,
-                                        hparams)
-
-        self.network = torch.hub.load('facebookresearch/deit:main', 'deit_tiny_patch16_224', pretrained=True)
-        # self.network = torch.hub.load('/home/computervision1/DG_new_idea/domainbed/deit-main',
-        #                               'deit_small_patch16_224_RB', pretrained=True, source='local')
-
-        self.network.head = nn.Linear(192, num_classes)
-
-        # optimizer AdamW same as paper
-        self.optimizer = torch.optim.AdamW(
-            self.network.parameters(),
-            lr=self.hparams["lr"],
-            weight_decay=self.hparams['weight_decay']
-        )
-
-    def update(self, minibatches, unlabeled=None):
-        all_x = torch.cat([x for x, y in minibatches])
-        all_y = torch.cat([y for x, y in minibatches])
-
-        output = self.predict(all_x)
-
-        loss = F.cross_entropy(output, all_y)
-
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        return {'loss': loss.item()}
-
-    def predict(self, x):
-        return self.network(x)
-
-
-class DeiT_small(Algorithm):
-    """ DieT S
-    """
-
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(DeiT_small, self).__init__(input_shape, num_classes, num_domains,
-                                         hparams)
-
-        self.network = torch.hub.load('/home/computervision1/DG_new_idea/domainbed/deit-main', 'deit_small_patch16_224',
-                                      pretrained=True, source='local')
-
-        self.network.head = nn.Linear(384, num_classes)
-
-        # optimizer AdamW same as paper
-        self.optimizer = torch.optim.AdamW(
-            self.network.parameters(),
-            lr=self.hparams["lr"],
-            weight_decay=self.hparams['weight_decay']
-        )
-
-    def update(self, minibatches, unlabeled=None):
-        all_x = torch.cat([x for x, y in minibatches])
-        all_y = torch.cat([y for x, y in minibatches])
-
-        output = self.predict(all_x)
-
-        loss = F.cross_entropy(output, all_y)
-
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        return {'loss': loss.item()}
-
-    def predict(self, x):
-        return self.network(x, skip_random_blk=True, rng=(0, 11))
-
-
-class DeiT_base(Algorithm):
-    """ DieT S
-    """
-
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(DeiT_base, self).__init__(input_shape, num_classes, num_domains,
-                                        hparams)
-
-        self.network = torch.hub.load('facebookresearch/deit:main', 'deit_base_patch16_224', pretrained=True)
-
-        self.network.head = nn.Linear(768, num_classes)
-
-        # optimizer AdamW same as paper
-        self.optimizer = torch.optim.AdamW(
-            self.network.parameters(),
-            lr=self.hparams["lr"],
-            weight_decay=self.hparams['weight_decay']
-        )
-
-    def update(self, minibatches, unlabeled=None):
-        all_x = torch.cat([x for x, y in minibatches])
-        all_y = torch.cat([y for x, y in minibatches])
-
-        output = self.predict(all_x)
-
-        loss = F.cross_entropy(output, all_y)
-
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        return {'loss': loss.item()}
-
-    def predict(self, x):
-        return self.network(x)
-
-
-class ViT_RB_And_Teacher(Algorithm):  # dr. muzamal saturday idea
-    """ DieT_Small_Distillation"""
-
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(ViT_RB_And_Teacher, self).__init__(input_shape, num_classes, num_domains,
-                                                 hparams)
-        self.alpha = self.hparams['RB_loss_weight']
-        self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
-
-        self.network = torch.hub.load('/home/computervision1/DG_new_idea/domainbed/deit-main',
-                                      'deit_small_self_distilled_patch16_224_RB', pretrained=True, source='local')
-
-        self.network.head = nn.Linear(384, num_classes)
-        # self.network.head_dist = nn.Linear(384, num_classes)  # reinitialize the last layer
-
-        # Importing pretrained Teacher model (ResNet-50)
-        fname = '/home/computervision1/DG_new_idea/domainbed/Best_ResNet50_Teacher/PACS/test_env' + str(
-            self.hparams['test_env'][0]) + '/model.pkl'
-        print(fname)
-
-        dump = torch.load(fname)
-        algorithm_class = get_algorithm_class(dump["args"]["algorithm"])
-        algorithm = algorithm_class(
-            dump["model_input_shape"],
-            dump["model_num_classes"],
-            dump["model_num_domains"],
-            dump["model_hparams"])
-        algorithm.load_state_dict(dump["model_dict"])
-        self.teacher_model = algorithm.network
-        self.teacher_model.to(device)
-        self.teacher_model.eval()
-
-        self.optimizer = torch.optim.AdamW(self.network.parameters(),
-                                           lr=self.hparams["lr"],
-                                           weight_decay=self.hparams['weight_decay']
-                                           )
-
-    def update(self, minibatches, unlabeled=None):
-        all_x = torch.cat([x for x, y in minibatches])
-        all_y = torch.cat([y for x, y in minibatches])
-        with torch.no_grad():
-            teacher_outputs = self.predict_teacher(all_x)
-
-        output, output_rb = self.predict(all_x)
-        base_loss = F.cross_entropy(output, all_y)
-
-        distillation_loss = F.kl_div(
-            F.log_softmax(output_rb / self.alpha_KL_temp, dim=1),
-            F.log_softmax(output / self.alpha_KL_temp, dim=1),
-            reduction='sum',
-            log_target=True
-        ) * (self.alpha_KL_temp * self.alpha_KL_temp) / output_rb.numel()
-
-        # Final_loss
-        loss = base_loss + self.alpha * distillation_loss
-
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        return {'loss': loss.item()}
-
-    def predict(self, x):
-        return self.network(x)
-
-    def predict_teacher(self, x):
-        return self.teacher_model(x)
-
-
-class ViT_And_Teacher(Algorithm):
-    """ DieT_T_D"""
-
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(ViT_And_Teacher, self).__init__(input_shape, num_classes, num_domains,
-                                              hparams)
-
-        self.alpha = self.hparams['RB_loss_weight']
-        self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
-
-        self.network = torch.hub.load('/home/computervision1/DG_new_idea/domainbed/deit-main',
-                                      'deit_small_distilled_patch16_224_RB_Verify', pretrained=True, source='local')
-
-        self.network.head = nn.Linear(384, num_classes)
-        self.network.head_dist = nn.Linear(384, num_classes)  # reinitialize the last layer
-
-        # Importing pretrained Teacher model (ResNet-50)
-        fname = '/home/computervision1/DG_new_idea/domainbed/Best_ResNet50_Teacher/PACS/test_env' + str(
-            self.hparams['test_env'][0]) + '/model.pkl'
-        print(fname)
-
-        dump = torch.load(fname)
-        algorithm_class = get_algorithm_class(dump["args"]["algorithm"])
-        algorithm = algorithm_class(
-            dump["model_input_shape"],
-            dump["model_num_classes"],
-            dump["model_num_domains"],
-            dump["model_hparams"])
-        algorithm.load_state_dict(dump["model_dict"])
-        self.teacher_model = algorithm.network
-        self.teacher_model.to(device)
-        self.teacher_model.eval()
-
-        self.optimizer = torch.optim.AdamW(self.network.parameters(),
-                                           lr=self.hparams["lr"],
-                                           weight_decay=self.hparams['weight_decay']
-                                           )
-
-    def update(self, minibatches, unlabeled=None):
-        all_x = torch.cat([x for x, y in minibatches])
-        all_y = torch.cat([y for x, y in minibatches])
-        with torch.no_grad():
-            teacher_outputs = self.predict_teacher(all_x)
-        output, outputs_kd, output_rb, outputs_kd_rb = self.predict(all_x)
-        base_loss = F.cross_entropy(output, all_y)
-
-        distillation_loss = F.kl_div(
-            F.log_softmax(outputs_kd / self.alpha_KL_temp, dim=1),
-            F.log_softmax(teacher_outputs / self.alpha_KL_temp, dim=1),
-            reduction='sum',
-            log_target=True
-        ) * (self.alpha_KL_temp * self.alpha_KL_temp) / outputs_kd.numel()
-
-        # Final_loss
-        loss = base_loss + self.alpha * distillation_loss
-
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        return {'loss': loss.item()}
-
-    def predict(self, x):
-        return self.network(x)
-
-    def predict_teacher(self, x):
-        return self.teacher_model(x)
-
-
-class ViT_RB_Teacher(Algorithm):
-    """ DieT_T_D"""
-
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(ViT_RB_Teacher, self).__init__(input_shape, num_classes, num_domains,
-                                             hparams)
-
-        self.alpha1 = self.hparams['RB_loss_weight']
-        self.alpha2 = self.hparams['Dis_loss_weight']
-
-        self.network = torch.hub.load('/home/computervision1/DG_new_idea/domainbed/deit-main',
-                                      'deit_small_distilled_patch16_224_RB_Verify', pretrained=True, source='local')
-
-        self.network.head = nn.Linear(384, num_classes)
-        self.network.head_dist = nn.Linear(384, num_classes)  # reinitialize the last layer
-
-        # Importing pretrained Teacher model (ResNet-50)
-        fname = '/home/computervision1/DG_new_idea/domainbed/Best_ResNet50_Teacher/PACS/test_env' + str(
-            self.hparams['test_env'][0]) + '/model.pkl'
-        print(fname)
-
-        dump = torch.load(fname)
-        algorithm_class = get_algorithm_class(dump["args"]["algorithm"])
-        algorithm = algorithm_class(
-            dump["model_input_shape"],
-            dump["model_num_classes"],
-            dump["model_num_domains"],
-            dump["model_hparams"])
-        algorithm.load_state_dict(dump["model_dict"])
-        self.teacher_model = algorithm.network
-        self.teacher_model.to(device)
-        self.teacher_model.eval()
-
-        self.optimizer = torch.optim.AdamW(self.network.parameters(),
-                                           lr=self.hparams["lr"],
-                                           weight_decay=self.hparams['weight_decay']
-                                           )
-
-    def update(self, minibatches, unlabeled=None):
-        all_x = torch.cat([x for x, y in minibatches])
-        all_y = torch.cat([y for x, y in minibatches])
-        with torch.no_grad():
-            teacher_outputs = self.predict_teacher(all_x)
-        output, outputs_kd, output_rb, outputs_kd_rb = self.predict(all_x)
-        base_loss = F.cross_entropy(output, all_y)
-
-        t = 3.0
-        rb_loss = F.kl_div(
-            F.log_softmax(output_rb / t, dim=1),
-            F.log_softmax(output / t, dim=1),
-            reduction='sum',
-            log_target=True
-        ) * (t * t) / output_rb.numel()
-
-        rb_distillation_loss = F.kl_div(
-            F.log_softmax(outputs_kd / t, dim=1),
-            F.log_softmax(teacher_outputs / t, dim=1),
-            reduction='sum',
-            log_target=True
-        ) * (t * t) / outputs_kd_rb.numel()
-
-        # Final_loss
-        loss = base_loss + self.alpha1 * rb_distillation_loss + self.alpha2 * rb_loss
-
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        return {'loss': loss.item()}
-
-    def predict(self, x):
-        return self.network(x)
-
-    def predict_teacher(self, x):
-        return self.teacher_model(x)
 
 
 class Fish(Algorithm):
