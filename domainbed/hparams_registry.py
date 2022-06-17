@@ -48,96 +48,18 @@ def _hparams(algorithm, dataset, random_seed):
         _hparam('mlp_depth', 3, lambda r: int(r.choice([3, 4, 5])))
         _hparam('mlp_dropout', 0., lambda r: r.choice([0., 0.1, 0.5]))
 
-    elif algorithm == 'ViT_RB_Teacher':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([1.5, 3.0, 4.0, 5.0, 6.0]))
-        _hparam('test_env', 0, lambda r: 0)
 
-    elif algorithm == 'DeiT_small_PixMix':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-
-    elif algorithm == 'ViT_RB_Teacher':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('Dis_loss_weight', 0.5, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('test_env', 0, lambda r: 0)
-
-    elif algorithm == 'DeiT_Tiny_Distilled_Soft':
-        _hparam('Dis_loss_weight', 0.5, lambda r: 0.5)
-        # _hparam('Distillation loss weight', 0.5, lambda r: 0.5)
-
-    elif algorithm == 'DeiT_Small_Random_Block':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-
-    elif algorithm == 'DeiT_Small_Distilled_Soft_RB_M':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-
-    elif algorithm == 'DeiT_Tiny_Distilled_Soft_RB_M':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-
-    elif algorithm == 'ViT_RB_base':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('KL_Div_Temperature', 1.5, lambda r: r.choice([1.5, 3.0, 4.0, 5.0, 6.0]))
-
-    elif algorithm == 'T2T_ViT_RB_small':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('KL_Div_Temperature', 1.5, lambda r: r.choice([1.5, 3.0, 4.0, 5.0, 6.0]))
-
-    elif algorithm == 'ViT_RB_small_fix':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('KL_Div_Temperature', 1.5, lambda r: r.choice([1.5, 3.0, 4.0, 5.0, 6.0]))
+    elif algorithm == 'ERM_ViT_self_dist_T2T':
+        _hparam('RB_loss_weight', 0.5, lambda r: r.choice([0.5, 0.1, 0.2]))
+        _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([3.0, 5.0]))
     
-    elif algorithm == 'ViT_all_blks':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('KL_Div_Temperature', 1.5, lambda r: r.choice([1.5, 3.0, 4.0, 5.0, 6.0]))
-
-    elif algorithm == 'ViT_RB_small':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('KL_Div_Temperature', 1.5, lambda r: r.choice([1.5, 3.0, 4.0, 5.0, 6.0]))
-
-    elif algorithm == 'ViT_RB_tiny':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([3.0, 1.5, 4.0, 5.0, 6.0]))
-
-    elif algorithm == 'ViT_RB_Weight_Balance':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        # _hparam('test_env', 0, lambda r: 0)
-
-
-    elif algorithm == 'ViT_RB_Teacher_RB':
-        _hparam('RB_loss_weight1', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('RB_loss_weight2', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('test_env', 0, lambda r: 0)
-
-    elif algorithm == 'ViT_RB_And_Teacher':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([3.0, 1.5, 4.0, 5.0, 6.0]))
-        # _hparam('Dis_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('test_env', 0, lambda r: 0)
-
-    elif algorithm == 'DeiT_Small_Distilled_Soft_RB_H':
-        _hparam('RB_loss_weight1', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('RB_loss_weight2', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('test_env', 0, lambda r: 0)
-
-    elif algorithm == 'DeiT_Small_Distilled_Soft_RB_H_2_3':
-        _hparam('RB_loss_weight', 0.1, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-        _hparam('test_env', 0, lambda r: 0)
-
-    elif algorithm == 'DeiT_Tiny_Distilled_Soft_RB_H':
-        _hparam('RB_loss_weight', 0.05, lambda r: r.choice([0.05, 0.1, 0.2, 0.5]))
-
-    elif algorithm == 'Tiny_Distilled_Hard':
-
-        _hparam('CE_loss weight', 0.5, lambda r: 0.5)
-        _hparam('Distillation loss weight', 0.5, lambda r: 0.5)
-
-    elif algorithm == 'Small_Distilled_Soft':
-        _hparam('Dis_loss_weight', 0.5, lambda r: 0.5)
-        # _hparam('Distillation loss weight', 0.5, lambda r: 0.5)
-    elif algorithm == 'Small_Distilled_Hard':
-
-        _hparam('CE_loss weight', 0.5, lambda r: 0.5)
-        _hparam('Distillation loss weight', 0.5, lambda r: 0.5)
+    elif algorithm == 'ERM_ViT_self_dist_CVT':
+        _hparam('RB_loss_weight', 0.5, lambda r: r.choice([0.5, 0.1, 0.2]))
+        _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([3.0, 5.0]))
+    
+    elif algorithm == 'ERM_ViT_self_dist_DeiT':
+        _hparam('RB_loss_weight', 0.5, lambda r: r.choice([0.5, 0.1, 0.2]))
+        _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([3.0, 5.0]))
 
     elif algorithm == 'Fish':
         _hparam('meta_lr', 0.5, lambda r: r.choice([0.05, 0.1, 0.5]))
