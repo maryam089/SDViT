@@ -1,7 +1,6 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
-# ResNet-18 False , data aug: True, normailization on
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+# os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 import argparse
 import collections
 import json
@@ -26,10 +25,6 @@ from domainbed.lib.fast_data_loader import InfiniteDataLoader, FastDataLoader
 from domainbed import model_selection
 from domainbed.lib.query import Q
 
-################################ Code required for RCERM ################################ 
-from domainbed import queue_var
-
-################################ Code required for RCERM ################################
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Domain generalization')

@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/computervision1/Maryam/ViT-self-dist-DG/domainbed/scripts/train.py", line 190, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/computervision1/Maryam/ViT-self-dist-DG/domainbed/algorithms.py", line 329, in __init__
+    self.network = torch.hub.load('./domainbed/pretrained_models/DeiT_models', 'deit_small_patch16_224',
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/site-packages/torch/hub.py", line 339, in load
+    model = _load_local(repo_or_dir, model, *args, **kwargs)
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/site-packages/torch/hub.py", line 365, in _load_local
+    hub_module = import_module(MODULE_HUBCONF, hubconf_path)
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/site-packages/torch/hub.py", line 74, in import_module
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 839, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1032, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: './domainbed/pretrained_models/DeiT_models/hubconf.py'

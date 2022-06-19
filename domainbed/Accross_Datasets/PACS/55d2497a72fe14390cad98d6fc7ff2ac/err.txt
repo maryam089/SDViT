@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/computervision1/Maryam/ViT-self-dist-DG/domainbed/scripts/train.py", line 176, in <module>
+    eval_loaders = [FastDataLoader(
+  File "/home/computervision1/Maryam/ViT-self-dist-DG/domainbed/scripts/train.py", line 176, in <listcomp>
+    eval_loaders = [FastDataLoader(
+  File "/home/computervision1/Maryam/ViT-self-dist-DG/domainbed/lib/fast_data_loader.py", line 60, in __init__
+    self._infinite_iterator = iter(torch.utils.data.DataLoader(
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 355, in __iter__
+    return self._get_iterator()
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 301, in _get_iterator
+    return _MultiProcessingDataLoaderIter(self)
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 896, in __init__
+    index_queue = multiprocessing_context.Queue()  # type: ignore
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/multiprocessing/context.py", line 103, in Queue
+    return Queue(maxsize, ctx=self.get_context())
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/multiprocessing/queues.py", line 47, in __init__
+    self._wlock = ctx.Lock()
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/multiprocessing/context.py", line 68, in Lock
+    return Lock(ctx=self.get_context())
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/multiprocessing/synchronize.py", line 162, in __init__
+    SemLock.__init__(self, SEMAPHORE, 1, 1, ctx=ctx)
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/multiprocessing/synchronize.py", line 73, in __init__
+    util.register_after_fork(self, _after_fork)
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/multiprocessing/util.py", line 172, in register_after_fork
+    _afterfork_registry[(next(_afterfork_counter), id(obj), func)] = obj
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/weakref.py", line 162, in __setitem__
+    self.data[key] = KeyedRef(value, self._remove, key)
+  File "/home/computervision1/anaconda3/envs/dgbed/lib/python3.8/weakref.py", line 324, in __new__
+    self = ref.__new__(type, ob, callback)
+KeyboardInterrupt

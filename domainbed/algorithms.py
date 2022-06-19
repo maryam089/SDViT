@@ -5,7 +5,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.autograd as autograd
 from torch.autograd import Variable
-from domainbed import pixmix_utils as utils
 import torchvision.transforms as T
 from torchvision.utils import make_grid
 import torchvision.datasets as datasets
@@ -327,7 +326,7 @@ class ERM_ViT_DeiT(Algorithm):
         super(ERM_ViT_DeiT, self).__init__(input_shape, num_classes, num_domains,
                                          hparams)
 
-        self.network = torch.hub.load('./domainbed/deit-main', 'deit_small_patch16_224',
+        self.network = torch.hub.load('./domainbed/pretrained_models/DeiT_models', 'deit_small_patch16_224',
                                       pretrained=True, source='local')
 
         self.network.head = nn.Linear(384, num_classes)
