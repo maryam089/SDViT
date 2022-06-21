@@ -4,12 +4,15 @@
 The code is build on the top of DomainBed: a PyTorch suite containing benchmark datasets and algorithms for domain generalization, as introduced in [In Search of Lost Domain Generalization](https://arxiv.org/abs/2007.01434).
 
 
-## Model selection criteria
-We computed results on the following model selection
-* `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
-
 ## Quick start
-
+To install conda env with conda, run the following command in your terminal:
+```sh
+conda env create -n ViT_DGbed --file ViT_DGbed.yml
+```
+Activate the conda environment:
+```sh
+conda activate ViT_DGbed
+```
 Download the datasets:
 
 ```sh
@@ -36,6 +39,9 @@ python -m domainbed.scripts.sweep launch\
        --command_launcher multi_gpu
 ```
 
+## Model selection criteria
+We computed results on the following model selection
+* `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
 
 To view the results:
 
