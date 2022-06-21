@@ -676,7 +676,7 @@ def small_cvt(pretrained=False, index=0, **kwargs):
     )
     model.default_cfg = _cfg()
     if pretrained:
-        model.load_state_dict(torch.load("./domainbed/pretrained/cvt/CvT-21-224x224-IN-1k.pth", map_location="cpu"), strict=False)
+        model.load_state_dict(torch.load("./domainbed/pretrained_models/cvt/CvT-21-224x224-IN-1k.pth", map_location="cpu"), strict=False)
     return model
 
 
@@ -716,14 +716,14 @@ def tiny_cvt(pretrained=False, index=0, **kwargs):
     )
     model.default_cfg = _cfg()
     if pretrained:
-        model.load_state_dict(torch.load("/home/computervision1/Sanoojan/DomainBedS/domainbed/pretrained/cvt/CvT-13-224x224-IN-1k.pth", map_location="cpu"), strict=False)
+        model.load_state_dict(torch.load("./domainbed/pretrained/cvt/CvT-13-224x224-IN-1k.pth", map_location="cpu"), strict=False)
     return model
 
 
 
 if __name__ == "__main__":
     model = small_cvt()
-    model.load_state_dict(torch.load("./home/computervision1/Sanoojan/DomainBedS/domainbed/pretrained/cvt/CvT-13-224x224-IN-1k.pth", map_location="cpu"), strict=False)
+    model.load_state_dict(torch.load("./domainbed/pretrained/cvt/CvT-13-224x224-IN-1k.pth", map_location="cpu"), strict=False)
     input = torch.randn(1, 3, 224, 224)
     # print(model(input)[-1].shape)
     print(f'num params: {sum(p.numel() for p in model.parameters())/1000000}')
