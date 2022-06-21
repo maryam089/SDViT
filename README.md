@@ -27,7 +27,7 @@ python3 -m domainbed.scripts.train\
        --test_env 0
 ```
 
-Launching a sweep: Training model with a all target domains
+Launching a sweep: Training model with all target domains
 
 ```sh
 python -m domainbed.scripts.sweep launch\
