@@ -49,7 +49,9 @@ To view the results:
 python -m domainbed.scripts.collect_results\
        --input_dir=/Sweep Output/path --get_recursively True
 ````
-
+## Test-Time Classifier Adjuster (T3A)
+T3A is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
+[https://github.com/matsuolab/T3A]
 
 
 ## License
