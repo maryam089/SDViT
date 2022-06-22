@@ -38,6 +38,17 @@ python -m domainbed.scripts.sweep launch\
        --output_dir=/Sweep Output/path\
        --command_launcher multi_gpu
 ```
+Launching a sweep on ViT Baselines:
+
+```sh
+./Baseline_sweep.sh
+```
+Launching a sweep on Our Proposed Model:
+
+```sh
+./Grid_Search_sweep.sh
+```
+Note: For above two sweeps change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet. Also Algorithms names change ERM_ViT_CVT, ERM_ViT_T2T, ERM_ViT_self_dist_CVT and ERM_ViT_self_dist_T2T
 
 ## Model selection criteria
 We computed results on the following model selection
@@ -51,8 +62,10 @@ python -m domainbed.scripts.collect_results\
 ````
 ## Test-Time Classifier Adjuster (T3A)
 T3A is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
-[https://github.com/matsuolab/T3A]
+[T3A](https://github.com/matsuolab/T3A)
 
+#Acknowledgmenst
+Code is based on [T2T](https://github.com/yitu-opensource/T2T-ViT), [CVT](https://github.com/microsoft/CvT), [DeiT](https://github.com/facebookresearch/deit) repository and [TIMM](https://github.com/rwightman/pytorch-image-models) library. We thank the authors for releasing their codes
 
 ## License
 
