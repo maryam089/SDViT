@@ -64,7 +64,7 @@ python -m domainbed.scripts.collect_results\
 T3A is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
 [T3A](https://github.com/matsuolab/T3A)
 
-#Acknowledgmenst
+## Acknowledgment
 Code is based on [T2T](https://github.com/yitu-opensource/T2T-ViT), [CVT](https://github.com/microsoft/CvT), [DeiT](https://github.com/facebookresearch/deit) repository and [TIMM](https://github.com/rwightman/pytorch-image-models) library. We thank the authors for releasing their codes
 
 ## License
