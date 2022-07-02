@@ -43,11 +43,11 @@ else:
 ALGORITHMS = [
     'ERM',
     'ERM_ViT_T2T',
-    'ERM_ViT_self_dist_T2T',
+    'ERM_SDViT_T2T',
     'ERM_ViT_CVT',
-    'ERM_ViT_self_dist_CVT',
+    'ERM_SDViT_CVT',
     'ERM_ViT_DeiT',
-    'ERM_ViT_self_dist_DeiT',
+    'ERM_SDViT_DeiT',
     'Fish',
     'IRM',
     'GroupDRO',
@@ -186,10 +186,10 @@ class ERM_ViT_T2T(Algorithm):
         return out
 
 
-class ERM_ViT_self_dist_T2T(Algorithm):
+class ERM_SDViT_T2T(Algorithm):
 
     def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(ERM_ViT_self_dist_T2T, self).__init__(input_shape, num_classes, num_domains,
+        super(ERM_SDViT_T2T, self).__init__(input_shape, num_classes, num_domains,
                                                hparams)
         self.alpha_rb_loss = self.hparams['RB_loss_weight']
         self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
@@ -270,7 +270,7 @@ class ERM_ViT_CVT(Algorithm):
         out = self.network(x)
         return out[-1]
 
-class ERM_ViT_self_dist_CVT(Algorithm):
+class ERM_SDViT_CVT(Algorithm):
 
     def __init__(self, input_shape, num_classes, num_domains, hparams):
         super(ERM_ViT_self_dist_CVT, self).__init__(input_shape, num_classes, num_domains,
@@ -354,10 +354,10 @@ class ERM_ViT_DeiT(Algorithm):
     def predict(self, x):
         return self.network(x, skip_random_blk=False, rng=(0, 11))
 
-class ERM_ViT_self_dist_DeiT(Algorithm):
+class ERM_SDViT_DeiT(Algorithm):
 
     def __init__(self, input_shape, num_classes, num_domains, hparams):
-        super(ERM_ViT_self_dist_DeiT, self).__init__(input_shape, num_classes, num_domains,
+        super(ERM_SDViT_DeiT, self).__init__(input_shape, num_classes, num_domains,
                                            hparams)
         self.alpha_rb_loss = self.hparams['RB_loss_weight']
         self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
