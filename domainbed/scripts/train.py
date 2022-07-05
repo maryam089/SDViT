@@ -28,7 +28,7 @@ from domainbed.lib.query import Q
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Domain generalization')
-    parser.add_argument('--data_dir', type=str, default="/home/computervision1/DG_new_idea/domainbed/data")
+    parser.add_argument('--data_dir', type=str, default="./domainbed/data")
     parser.add_argument('--dataset', type=str, default="PACS")
     parser.add_argument('--algorithm', type=str, default="ViT_RB_small")
     parser.add_argument('--task', type=str, default="domain_generalization",
@@ -233,7 +233,6 @@ if __name__ == "__main__":
         torch.save(save_dict, os.path.join(args.output_dir, filename))
 
 
-    ################################ Code required for ---- ################################
 
     last_results_keys = None
     best_val_acc = 0
