@@ -61,12 +61,12 @@ We computed results on the following model selection
 ## Results Using Pre-trained Models
 To view the results using our pre-trained models:
 - Step 1: Download the pretrained models uisng this link
-- Step 2: Run the following commands to get outputs
+- Step 2: Run the following command to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
        --input_dir=/Results/Dataset/Model/ --get_recursively True
 ````
-Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM_ViT_DeiT/ and so on....)
+Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM_ViT_DeiT/ and so on....) to view results on various models.
 ## Test-Time Classifier Adjuster (T3A)
 T3A is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
 [T3A](https://github.com/matsuolab/T3A)
