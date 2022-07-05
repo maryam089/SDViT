@@ -1,5 +1,4 @@
-# ERM-SDViT
-# Self-Distilled Vision Transformer for Domain Generalization
+
 
 The code is build on the top of DomainBed: a PyTorch suite containing benchmark datasets and algorithms for domain generalization, as introduced in [In Search of Lost Domain Generalization](https://arxiv.org/abs/2007.01434).
 
@@ -31,7 +30,7 @@ Training a single model with an indiviual target domain (test_env) id 0:
 ```sh
 python3 -m domainbed.scripts.train\
        --data_dir=./domainbed/data/PACS/\
-       --algorithm ERM-ViT\
+       --algorithm ERM\
        --dataset PACS\
        --test_env 0
 ```
@@ -54,7 +53,7 @@ Launching a sweep on Our Proposed Model:
 ```sh
 ./Grid_Search_sweep.sh
 ```
-Note: For above all commands change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet. Also Algorithms names change ERM_ViT_CVT, ERM_ViT_T2T, ERM_SDViT_CVT and ERM_SDViT_T2T as per your choice. 
+Note: For above all commands change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet 
 
 ## Model selection criteria
 We computed results on the following model selection
@@ -67,7 +66,7 @@ To view the results using our pre-trained models:
 python -m domainbed.scripts.collect_results\
        --input_dir=/Results/Dataset/Model/ --get_recursively True
 ````
-Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM_ViT_DeiT/ and so on....) to view results on various models.
+Note: Replace the text with dataset and model names (e.g: Results/PACS/Model/ and so on....) to view results on various models.
 ## Test-Time Classifier Adjuster (T3A)
 T3A is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
 [T3A](https://github.com/matsuolab/T3A)
