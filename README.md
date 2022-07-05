@@ -22,7 +22,7 @@ python3 -m domainbed.scripts.download \
 Note: for downloading other datasets change --dataset pacs with other datasets (e.g., vlcs, office_home, terra_incognita, domainnet).
 
 ## Train your own models:
-- Step 1: Download the pretrained models on Imagenet, DeiT, CVT-21, T2T-ViT-14
+- Step 1: Download the pretrained models on Imagenet, DeiT, CVT-21, T2T-ViT-14 (TBA)
 - Step 2: Place the models in the path ./domainbed/pretrained_models/Model_name/
 - Step 3: Run the followng commands:  
 Training a single model with an indiviual target domain (test_env) id 0:
@@ -60,7 +60,7 @@ We computed results on the following model selection
 * `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
 ## Results Using Pre-trained Models
 To view the results using our pre-trained models:
-- Step 1: Download the pretrained models uisng this link
+- Step 1: Download the pretrained models uisng this link (TBA)
 - Step 2: Run the following command to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
