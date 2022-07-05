@@ -58,7 +58,7 @@ Note: For above all commands change --dataset PACS for training on other dataset
 ## Model selection criteria
 We computed results on the following model selection
 * `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
-
+## Results Using Pre-trained Models
 To view the results using our pre-trained models:
 - Step 1: Download the pretrained models uisng this link
 - Step 2: Run the following commands to get outputs
