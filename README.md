@@ -17,8 +17,9 @@ Download the datasets:
 
 ```sh
 python3 -m domainbed.scripts.download \
-       --data_dir=./domainbed/data
+       --data_dir=./domainbed/data --dataset pacs
 ```
+Note: for downloading other datasets change --dataset pacs with other datasets (e.g., vlcs, office_home, terra_incognita, domainnet).
 
 Training a single model with an indiviual target domain (test_env) id 0:
 
@@ -48,18 +49,20 @@ Launching a sweep on Our Proposed Model:
 ```sh
 ./Grid_Search_sweep.sh
 ```
-Note: For above two sweeps change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet. Also Algorithms names change ERM_ViT_CVT, ERM_ViT_T2T, ERM_ViT_self_dist_CVT and ERM_ViT_self_dist_T2T
+Note: For above two sweeps change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet. Also Algorithms names change ERM_ViT_CVT, ERM_ViT_T2T, ERM_SDViT_CVT and ERM_SDViT_T2T
 
 ## Model selection criteria
 We computed results on the following model selection
 * `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
 
-To view the results:
-
+To view the results using our pre-trained models:
+Step 1: Download the pretrained model uisng this link
+Step 2: Run the following commands to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
-       --input_dir=/Sweep Output/path --get_recursively True
+       --input_dir=/Results/Dataset/Model/ --get_recursively True
 ````
+Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM_ViT_DeiT/ and so on....)
 ## Test-Time Classifier Adjuster (T3A)
 T3A is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
 [T3A](https://github.com/matsuolab/T3A)
