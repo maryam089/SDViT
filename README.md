@@ -22,9 +22,9 @@ python3 -m domainbed.scripts.download \
 Note: for downloading other datasets change --dataset pacs with other datasets (e.g., vlcs, office_home, terra_incognita, domainnet).
 
 ## Train your own models:
-1) Step 1: Download the pretrained models on Imagenet, DeiT, CVT-21, T2T-ViT-14
-2) Step 2: Place the models in the path ./domainbed/pretrained_models/Model_name/
-3) Step 3: Run the followng commands 
+- Step 1: Download the pretrained models on Imagenet, DeiT, CVT-21, T2T-ViT-14
+- Step 2: Place the models in the path ./domainbed/pretrained_models/Model_name/
+- Step 3: Run the followng commands:  
 Training a single model with an indiviual target domain (test_env) id 0:
 
 ```sh
