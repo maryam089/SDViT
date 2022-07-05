@@ -138,7 +138,7 @@ if __name__ == "__main__":
     parser.add_argument('--holdout_fraction', type=float, default=0.2)
     parser.add_argument('--uda_holdout_fraction', type=float, default=0,
         help="For domain adaptation, % of test to use unlabeled for training.")
-    parser.add_argument('--pretrained', type=str, default="/home/computervision1/DG_new_idea_Sanoojan/domainbed/Our_Model_Complete/PACS/DeiT_Small_RB_Distill_loss0.1_BEST/train_output/model.pkl")
+    parser.add_argument('--pretrained', type=str, default="/train_output/model.pkl")
     parser.add_argument('--pretrained_comp',type=str,default=None)
     parser.add_argument('--algo_name', type=str, default=None)
     parser.add_argument('--confusion_matrix', type=bool, default=False)
@@ -300,10 +300,6 @@ if __name__ == "__main__":
     steps_per_epoch = min([len(env)/hparams['batch_size'] for env,_ in in_splits])
 
     
-    # checkpoint_freq = args.checkpoint_freq or dataset.CHECKPOINT_FREQ
-
-
-    ################################ Code required for ---- ################################
         
     last_results_keys = None
     # for step in range(start_step, n_steps):
