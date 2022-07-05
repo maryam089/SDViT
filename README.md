@@ -53,15 +53,15 @@ Launching a sweep on Our Proposed Model:
 ```sh
 ./Grid_Search_sweep.sh
 ```
-Note: For above two sweeps change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet. Also Algorithms names change ERM_ViT_CVT, ERM_ViT_T2T, ERM_SDViT_CVT and ERM_SDViT_T2T. 
+Note: For above all commands change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet. Also Algorithms names change ERM_ViT_CVT, ERM_ViT_T2T, ERM_SDViT_CVT and ERM_SDViT_T2T as per your choice. 
 
 ## Model selection criteria
 We computed results on the following model selection
 * `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
 
 To view the results using our pre-trained models:
-Step 1: Download the pretrained models uisng this link
-Step 2: Run the following commands to get outputs
+- Step 1: Download the pretrained models uisng this link
+- Step 2: Run the following commands to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
        --input_dir=/Results/Dataset/Model/ --get_recursively True
