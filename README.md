@@ -13,7 +13,7 @@ Activate the conda environment:
 ```sh
 conda activate ViT_DGbed
 ```
-Download the datasets:
+## Download the datasets:
 
 ```sh
 python3 -m domainbed.scripts.download \
@@ -21,6 +21,10 @@ python3 -m domainbed.scripts.download \
 ```
 Note: for downloading other datasets change --dataset pacs with other datasets (e.g., vlcs, office_home, terra_incognita, domainnet).
 
+## Train your own models:
+Step 1: Download the pretrained models on Imagenet, DeiT, CVT-21, T2T-ViT-14
+Step 2: Place the models in the path ./domainbed/pretrained_models/Model_name/
+Step 3: Run the followng commands 
 Training a single model with an indiviual target domain (test_env) id 0:
 
 ```sh
@@ -49,14 +53,14 @@ Launching a sweep on Our Proposed Model:
 ```sh
 ./Grid_Search_sweep.sh
 ```
-Note: For above two sweeps change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet. Also Algorithms names change ERM_ViT_CVT, ERM_ViT_T2T, ERM_SDViT_CVT and ERM_SDViT_T2T
+Note: For above two sweeps change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet. Also Algorithms names change ERM_ViT_CVT, ERM_ViT_T2T, ERM_SDViT_CVT and ERM_SDViT_T2T. 
 
 ## Model selection criteria
 We computed results on the following model selection
 * `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
 
 To view the results using our pre-trained models:
-Step 1: Download the pretrained model uisng this link
+Step 1: Download the pretrained models uisng this link
 Step 2: Run the following commands to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
