@@ -1,4 +1,5 @@
-
+# ERM-SDViT
+# Self-Distilled Vision Transformer for Domain Generalization
 
 The code is build on the top of DomainBed: a PyTorch suite containing benchmark datasets and algorithms for domain generalization, as introduced in [In Search of Lost Domain Generalization](https://arxiv.org/abs/2007.01434).
 
