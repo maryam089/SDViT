@@ -42,6 +42,8 @@ else:
     device = "cpu"
 ALGORITHMS = [
     'ERM',
+    'ERM_ViT',
+    'ERM_SDViT',
     'ERM_ViT_T2T',
     'ERM_SDViT_T2T',
     'ERM_ViT_CVT',
@@ -2412,7 +2414,7 @@ def return_backbone_network(network_name,num_classes,hparams):
     elif(network_name=="T2T14"):
         network = t2t_vit_t_14()
         # load the pretrained weights
-        pretrained_path = "./domainbed/pretrained_models/81.7_T2T_ViTt_14.pth"
+        pretrained_path = "./domainbed/pretrained_models/t2t/81.7_T2T_ViTt_14.pth"
         load_for_transfer_learning(network, pretrained_path, use_ema=True, strict=True, num_classes=1000)
         network.head = nn.Linear(384, num_classes) 
         return network
