@@ -163,16 +163,20 @@ class T2T_ViT(nn.Module):
         x = x + self.pos_embed
         x = self.pos_drop(x)
 
+        layer_wise_tokens = []
+
         for blk in self.blocks:
             x = blk(x)
+            layer_wise_tokens.append(x)
 
-        x = self.norm(x)
-        return x[:, 0]
+        layer_wise_tokens = [self.norm(x) for x in layer_wise_tokens]
+        return [(x[:, 0]) for x in layer_wise_tokens]
 
     def forward(self, x):
-        x = self.forward_features(x)
-        x = self.head(x)
+        list_out = self.forward_features(x)
+        x = [self.head(x) for x in list_out]
         return x
+ 
 
 class T2T_ViT_RB(nn.Module):
     def __init__(self, img_size=224, tokens_type='performer', in_chans=3, num_classes=1000, embed_dim=768, depth=12,

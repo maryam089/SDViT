@@ -302,40 +302,36 @@ class VisionTransformer(nn.Module):
         self.num_classes = num_classes
         self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
-    def forward_features(self, x, return_feat=False, skip_random_blk=False, rng=(0, 11)):
+    def forward_features(self, x):
+        # taken from https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
+        # with slight modifications to add the dist_token
         B = x.shape[0]
         x = self.patch_embed(x)
 
         cls_tokens = self.cls_token.expand(B, -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
         x = torch.cat((cls_tokens, x), dim=1)
+
         x = x + self.pos_embed
         x = self.pos_drop(x)
+
+        ######
         layer_wise_tokens = []
-        block_number = random.randint(rng[0], rng[1])
-        for i, blk in enumerate(self.blocks):
-            if block_number == i and skip_random_blk and self.training:
-                # print(block_number)
-                continue
+        for blk in self.blocks:
             x = blk(x)
-            # print(blk.size,'length of blk')
-
-            # print(blk,'blk ')
             layer_wise_tokens.append(x)
-        if return_feat:
-            layer_wise_tokens = [self.norm(x) for x in layer_wise_tokens]
-            return [(x[:, 0]) for x in layer_wise_tokens]
-        x = self.norm(x)
-        return x[:, 0]
 
-    def forward(self, x, return_feat=False, skip_random_blk=False, rng=(0, 11)):
+        layer_wise_tokens = [self.norm(x) for x in layer_wise_tokens]
+        return [(x[:, 0]) for x in layer_wise_tokens]
 
-        x = self.forward_features(x, return_feat=return_feat, skip_random_blk=skip_random_blk, rng=rng)
-        features = x
-        if (return_feat):
-            x = self.head(x[-1])
-            return x, features
-        x = self.head(x)
-        return x
+    def forward(self, x,return_feat=False):
+        list_out = self.forward_features(x)
+        features=list_out
+        x = [self.head(x) for x in list_out]
+        if(return_feat):
+            return x,features 
+        else:
+            return x
+
 
     def acc_for_blocks(self, x):
         B = x.shape[0]

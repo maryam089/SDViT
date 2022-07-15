@@ -146,6 +146,88 @@ class ERM(Algorithm):
     def predict(self, x):
         return self.network(x)
 
+class ERM_ViT(Algorithm):
+
+    def __init__(self, input_shape, num_classes, num_domains, hparams):
+        super(ERM_ViT, self).__init__(input_shape, num_classes, num_domains,
+                                            hparams)
+
+        # create model
+        backbone=self.hparams['backbone']
+        self.network = return_backbone_network(backbone,num_classes,hparams) 
+
+        self.optimizer = torch.optim.AdamW(
+            self.network.parameters(),
+            lr=self.hparams["lr"],
+            weight_decay=self.hparams['weight_decay']
+        )
+
+    def update(self, minibatches, unlabeled=None):
+        all_x = torch.cat([x for x, y in minibatches])
+        all_y = torch.cat([y for x, y in minibatches])
+
+        output = self.predict(all_x)
+
+        loss = F.cross_entropy(output, all_y)
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        return {'loss': loss.item()}
+
+    def predict(self, x):
+        out = self.network(x)
+        return out[-1]
+
+class ERM_SDViT(Algorithm):
+
+    def __init__(self, input_shape, num_classes, num_domains, hparams):
+        super(ERM_SDViT, self).__init__(input_shape, num_classes, num_domains,
+                                               hparams)
+        self.alpha_rb_loss = self.hparams['RB_loss_weight']
+        self.alpha_KL_temp = self.hparams['KL_Div_Temperature']
+
+        # create model
+        backbone=self.hparams['backbone']
+        self.network = return_backbone_network(backbone,num_classes,hparams) 
+
+        self.optimizer = torch.optim.AdamW(self.network.parameters(),
+                                           lr=self.hparams["lr"],
+                                           weight_decay=self.hparams['weight_decay']
+                                           )
+
+    def update(self, minibatches, unlabeled=None):
+        all_x = torch.cat([x for x, y in minibatches])
+        all_y = torch.cat([y for x, y in minibatches])
+
+        output, output_rb = self.predict_Train(all_x)
+
+        base_loss = F.cross_entropy(output, all_y)
+        rb_loss = F.kl_div(
+            F.log_softmax(output_rb / self.alpha_KL_temp, dim=1),
+            F.log_softmax(output / self.alpha_KL_temp, dim=1),
+            reduction='sum',
+            log_target=True
+        ) * (self.alpha_KL_temp * self.alpha_KL_temp) / output_rb.numel()
+
+        # Final_loss
+        loss = base_loss + self.alpha_rb_loss * rb_loss
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        return {'loss': loss.item()}
+
+    def predict_Train(self, x):
+        out = self.network(x)
+        block_number = random.randint(0, len(out) - 1)
+        return out[-1], out[block_number]
+
+    def predict(self, x):
+        out = self.network(x)
+        return out[-1]
 
 class ERM_ViT_T2T(Algorithm):
 
@@ -2315,3 +2397,22 @@ class Distribution_shift(Algorithm):
         # if torch.cuda.is_available():
         #     return self.network(x).cuda()
         return self.network(x)
+
+
+def return_backbone_network(network_name,num_classes,hparams):
+    if(network_name=="DeitSmall"):
+        network = torch.hub.load('./domainbed/pretrained_models/DeiT_models', 'deit_small_patch16_224',
+                                      pretrained=True, source='local')
+        network.head = nn.Linear(384, num_classes)
+        return network
+    elif(network_name=="CVTSmall"):
+        network = small_cvt(pretrained=True)
+        network.head = nn.Linear(384, num_classes)
+        return network
+    elif(network_name=="T2T14"):
+        network = t2t_vit_t_14()
+        # load the pretrained weights
+        pretrained_path = "./domainbed/pretrained_models/81.7_T2T_ViTt_14.pth"
+        load_for_transfer_learning(network, pretrained_path, use_ema=True, strict=True, num_classes=1000)
+        network.head = nn.Linear(384, num_classes) 
+        return network
