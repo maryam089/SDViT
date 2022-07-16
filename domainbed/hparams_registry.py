@@ -50,15 +50,7 @@ def _hparams(algorithm, dataset, random_seed):
         _hparam('mlp_dropout', 0., lambda r: r.choice([0., 0.1, 0.5]))
 
 
-    elif algorithm == 'ERM_ViT_self_dist_T2T':
-        _hparam('RB_loss_weight', 0.5, lambda r: r.choice([0.5, 0.1, 0.2]))
-        _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([3.0, 5.0]))
-    
-    elif algorithm == 'ERM_ViT_self_dist_CVT':
-        _hparam('RB_loss_weight', 0.5, lambda r: r.choice([0.5, 0.1, 0.2]))
-        _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([3.0, 5.0]))
-    
-    elif algorithm == 'ERM_ViT_self_dist_DeiT':
+    elif algorithm == 'ERM_SDViT':
         _hparam('RB_loss_weight', 0.5, lambda r: r.choice([0.5, 0.1, 0.2]))
         _hparam('KL_Div_Temperature', 3.0, lambda r: r.choice([3.0, 5.0]))
 
