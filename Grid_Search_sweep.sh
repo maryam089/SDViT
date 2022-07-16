@@ -4,7 +4,7 @@ do
     for lambda2 in 3.0 5.0
     do
         for command in delete_incomplete launch
-		    do
+		do
         python -m domainbed.scripts.sweep ${command} --data_dir=/home/computervision1/DG_new_idea/domainbed/data/ \
         --output_dir=./domainbed/PACS_Output/ERM_SDViT/sweep_RB_loss_${lambda1}_KL_Div_Temperature_${lambda2} --command_launcher multi_gpu --algorithms ERM_SDViT  \
         --single_test_envs  --datasets PACS  --n_hparams 1 --n_trials 3  \
