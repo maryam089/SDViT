@@ -22,7 +22,7 @@ python3 -m domainbed.scripts.download \
 Note: for downloading other datasets change --dataset pacs with other datasets (e.g., vlcs, office_home, terra_incognita, domainnet).
 
 ## Train your own models:
-- Step 1: Download the pretrained models on Imagenet, DeiT, CVT-21, T2T-ViT-14 (TBA)
+- Step 1: Download the pretrained models on Imagenet, such as [CVT-21](), [T2T-ViT-14]() (TBA)
 - Step 2: Place the models in the path ./domainbed/pretrained_models/Model_name/
 - Step 3: Run the followng commands:  
 
@@ -44,6 +44,7 @@ python -m domainbed.scripts.sweep launch\
        --output_dir=/Sweep Output/path\
        --command_launcher multi_gpu
 ```
+## Training using our proposed models:
 Launching a sweep on ViT Baselines:
 
 ```sh
