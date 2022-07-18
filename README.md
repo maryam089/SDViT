@@ -16,22 +16,17 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 ```
 
 ### Contents  
-1) [Contributions](#Contributions) 
-2) [Target Transferability Vs Model Disparity](#Target-Transferability-Vs-Model-Disparity)
-3) [Pretrained Targeted Generator](#Pretrained-Targeted-Generator) 
-4) [Training](#Training)
+1) [Highlights](#Highlights) 
+2) [Quick Start](#Quick Start)
+3) [Download Datasets](#Download Datasets)
+4) [Train SDViT Models](#Train SDViT Models)
 5) [Evaluation](#Evaluation)
-7) [Why Augmentations boost Transferability?](#Why-Augmentations-boost-Transferability)
-8) [Why Ensemble of weak Models maximizes Transferability?](#Why-Ensemble-of-weak-Models-maximizes-Transferability)
-9) [Generative Vs Iterative Attacks](#Generative-Vs-Iterative-Attacks)
-     * [Key Developments made by Iterative Attacks](#Key-Developments-made-by-Iterative-Attacks)
-     * [Key Developments made by Generative Attacks](#Key-Developments-made-by-Generative-Attacks)
-10) [Tracking SOTA Targeted Transferability](#Tracking-SOTA-Targeted-Transferability) 
-11) [What Can You Do?](#What-Can-You-Do)  
 12) [Visual Examples](#Visual-Examples)
 
 
-## Quick start
+##Highlights
+
+## Quick Start
 To install conda env with conda, run the following command in your terminal:
 ```sh
 conda env create -n ViT_DGbed --file ViT_DGbed.yml
@@ -40,7 +35,7 @@ Activate the conda environment:
 ```sh
 conda activate ViT_DGbed
 ```
-## Download the datasets:
+## Download Datasets:
 
 ```sh
 python3 -m domainbed.scripts.download \
@@ -52,7 +47,7 @@ Note: for downloading other datasets change --dataset pacs with other datasets (
 ## Model selection criteria
 We computed results on the following model selection
 * `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
-## Train SDViT models:
+## Train SDViT Models:
 - Step 1: Download the pretrained models on Imagenet, such as [CVT-21](https://onedrive.live.com/?authkey=%21AMXesxbtKwsdryE&cid=56B9F9C97F261712&id=56B9F9C97F261712%2115008&parId=56B9F9C97F261712%2115004&o=OneUp), [T2T-ViT-14](https://github.com/yitu-opensource/T2T-ViT/releases/download/main/81.5_T2T_ViT_14.pth.tar)
 - Step 2: Place the models in the path ./domainbed/pretrained_models/Model_name/
 - Step 3: Run the followng commands:  
