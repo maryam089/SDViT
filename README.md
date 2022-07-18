@@ -7,6 +7,7 @@
 <p align="center">
      <img src="https://github.com/Muzammal-Naseer/TTP/blob/main/assets/concept_fig.png" > 
 </p>
+
 Proposed self-distillation in ViTs for domain generalization (ERM-SDViT). ViTs build upon a modular and a hierarchical architecture, where a model is comprised of $n$ intermediate blocks/layers f_{i} and a final classifier h. The 'Selector' chooses a random block from the range of intermediate blocks and makes a prediction after passing its classification token through the final classifier. This way the dark knowledge, as non-zero entropy signals, is distilled from the final classification token to the intermediate class tokens during training
 ## News Updates
 - SDViT pre-trained models will be available after (25/07/2022).
