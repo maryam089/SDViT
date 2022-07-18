@@ -1,5 +1,33 @@
 # Self-Distilled Vision Transformer for Domain Generalization
-Abstract: In recent past, several domain generalization (DG) methods have been proposed, showing encouraging performance, however, almost all of them build on convolutional neural networks (CNNs). There is little to no progress on studying the DG performance of vision transformers (ViTs), which are challenging the supremacy of CNNs on standard benchmarks, often built on i.i.d assumption. This renders the real-world deployment of ViTs doubtful. In this paper, we attempt to explore ViTs towards addressing the DG problem. Similar to CNNs, ViTs also struggle in out-of-distribution scenarios and the main culprit is overfitting to source domains. Inspired by the modular architecture of ViTs, we propose a simple DG approach for ViTs, coined as \emph{self-distillation for ViTs}. It reduces the overfitting to source domains by easing the learning of input-output mapping problem through curating non-zero entropy supervisory signals for intermediate transformer blocks. Further, it does not introduce any new parameters and can be seamlessly plugged into the modular composition of different ViTs. We empirically demonstrate notable performance gains with different DG baselines and various ViT backbones in five challenging datasets. Moreover, we report favorable performance against recent state-of-the-art DG methods. Our code along with pre-trained models are made available publicly.
+[Maryam Sultana](https://scholar.google.com/citations?user=dKsfEyIAAAAJ&hl=en), [Muzammal Naseer](https://scholar.google.ch/citations?user=tM9xKA8AAAAJ&hl=en), [M.Haris Khan](https://scholar.google.com/citations?user=ZgERfFwAAAAJ&hl=en), [Salman Khan](https://scholar.google.com/citations?user=M59O9lkAAAAJ&hl=en), and [Fahad Shahbaz Khan](https://scholar.google.ch/citations?user=zvaeYnUAAAAJ&hl=en&oi=ao)
+[Paper]() ([arXiv]()) (TBA)
+> **Abstract:** *In recent past, several domain generalization (DG) methods have been proposed, showing encouraging performance, however, almost all of them build on convolutional neural networks (CNNs). There is little to no progress on studying the DG performance of vision transformers (ViTs), which are challenging the supremacy of CNNs on standard benchmarks, often built on i.i.d assumption. This renders the real-world deployment of ViTs doubtful. In this paper, we attempt to explore ViTs towards addressing the DG problem. Similar to CNNs, ViTs also struggle in out-of-distribution scenarios and the main culprit is overfitting to source domains. Inspired by the modular architecture of ViTs, we propose a simple DG approach for ViTs, coined as self-distillation for ViTs. It reduces the overfitting to source domains by easing the learning of input-output mapping problem through curating non-zero entropy supervisory signals for intermediate transformer blocks. Further, it does not introduce any new parameters and can be seamlessly plugged into the modular composition of different ViTs. We empirically demonstrate notable performance gains with different DG baselines and various ViT backbones in five challenging datasets. Moreover, we report favorable performance against recent state-of-the-art DG methods. Our code along with pre-trained models are made available publicly.*
+> 
+## News Updates
+- SDViT pre-trained models will be available after (25/07/2022).
+
+
+## Citation
+If you find our work useful. Please consider giving a star :star: and cite our work. (TBA)
+```bibtex
+@InProceedings{
+}
+```
+
+### Contents  
+1) [Contributions](#Contributions) 
+2) [Target Transferability Vs Model Disparity](#Target-Transferability-Vs-Model-Disparity)
+3) [Pretrained Targeted Generator](#Pretrained-Targeted-Generator) 
+4) [Training](#Training)
+5) [Evaluation](#Evaluation)
+7) [Why Augmentations boost Transferability?](#Why-Augmentations-boost-Transferability)
+8) [Why Ensemble of weak Models maximizes Transferability?](#Why-Ensemble-of-weak-Models-maximizes-Transferability)
+9) [Generative Vs Iterative Attacks](#Generative-Vs-Iterative-Attacks)
+     * [Key Developments made by Iterative Attacks](#Key-Developments-made-by-Iterative-Attacks)
+     * [Key Developments made by Generative Attacks](#Key-Developments-made-by-Generative-Attacks)
+10) [Tracking SOTA Targeted Transferability](#Tracking-SOTA-Targeted-Transferability) 
+11) [What Can You Do?](#What-Can-You-Do)  
+12) [Visual Examples](#Visual-Examples)
 
 
 ## Quick start
