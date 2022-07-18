@@ -5,10 +5,11 @@
 > **Abstract:** *In recent past, several domain generalization (DG) methods have been proposed, showing encouraging performance, however, almost all of them build on convolutional neural networks (CNNs). There is little to no progress on studying the DG performance of vision transformers (ViTs), which are challenging the supremacy of CNNs on standard benchmarks, often built on i.i.d assumption. This renders the real-world deployment of ViTs doubtful. In this paper, we attempt to explore ViTs towards addressing the DG problem. Similar to CNNs, ViTs also struggle in out-of-distribution scenarios and the main culprit is overfitting to source domains. Inspired by the modular architecture of ViTs, we propose a simple DG approach for ViTs, coined as self-distillation for ViTs. It reduces the overfitting to source domains by easing the learning of input-output mapping problem through curating non-zero entropy supervisory signals for intermediate transformer blocks. Further, it does not introduce any new parameters and can be seamlessly plugged into the modular composition of different ViTs. We empirically demonstrate notable performance gains with different DG baselines and various ViT backbones in five challenging datasets. Moreover, we report favorable performance against recent state-of-the-art DG methods. Our code along with pre-trained models are made available publicly.*
 
 <p align="center">
-     <img src="https://github.com/Muzammal-Naseer/TTP/blob/main/assets/concept_fig.png" > 
+     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/proposed_method_git.png" > 
 </p>
+Proposed self-distillation in ViTs for domain generalization (ERM-SDViT). ViTs build upon a modular and a hierarchical architecture, where a model is comprised of $n$ intermediate blocks/layers f_{i} and a final classifier h. The 'Selector' chooses a random block from the range of intermediate blocks and makes a prediction after passing its classification token through the final classifier. This way the dark knowledge, as non-zero entropy signals, is distilled from the final classification token to the intermediate class tokens during training.
 
-Proposed self-distillation in ViTs for domain generalization (ERM-SDViT). ViTs build upon a modular and a hierarchical architecture, where a model is comprised of $n$ intermediate blocks/layers f_{i} and a final classifier h. The 'Selector' chooses a random block from the range of intermediate blocks and makes a prediction after passing its classification token through the final classifier. This way the dark knowledge, as non-zero entropy signals, is distilled from the final classification token to the intermediate class tokens during training
+
 ## News Updates
 - SDViT pre-trained models will be available after (25/07/2022).
 
@@ -30,15 +31,12 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 
 
 ##Highlights
-1. We designed a new training mechanism that allows an adversarial generator to explore  augmented  adversarial space during  training  which  enhances  transferability  of adversarial examples during inference. 
-2. We propose maximizing the mutual agreement between the given source and the target distributions. Our relaxed objective provides two crucial benifts: a) Generator can now model target ditribution by pushing global statistics between source and target domain closer in the discriminator's latent space, and b)  Training is not dependent on class impressions anymore, so our method can provide targeted guidance to the generator without the need of classification boundary information.  This allows an attacker to learn targeted generative perturbations from the unsupervised features.
-3. We propose a diverse and consistent experimental settings to evaluate target transferability of adversarial attacks: [Unknown Target Model](#Unknown-Target-Model),  [Unknown Training Mechanism](#Unknown-Training-Mechanism)
-, and [Unknown Input Processing](#Unknown-Training-Mechanism).
-3. We provide a platform to track targeted transferability. Please see [Tracking SOTA Targeted Transferability](#Tracking-SOTA-Targeted-Transferability). (kindly let us know if you have a new attack method, we will add your results here)
 
 <p align="center">
-     <img src="https://github.com/Muzammal-Naseer/TTP/blob/main/assets/concept_fig.png" > 
+     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/blockwise_accuracy_git.png" > 
 </p>
+In the Fig. above, we plot the block-wise accuracy of baseline (ERM-ViT) and our method (ERM-SDViT). Random sub-model distillation improves the accuracy of all blocks, in particular, the improvement is more pronounced for the earlier blocks. Besides later blocks, it also encourages earlier blocks to bank on transferable representations, yet discriminative representations. Since these earlier blocks manifest multiple discriminative feature pathways, we believe that they better facilitate the overall model towards capturing the semantics of the object class.
+
 
 ##Quick Start
 To install conda env with conda, run the following command in your terminal:
@@ -90,6 +88,25 @@ python -m domainbed.scripts.collect_results\
 Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM-ViT/DeiT-Small/ and so on....) to view results on various models. Test-Time Classifier Adjuster (T3A)
 T3A is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
 [T3A](https://github.com/matsuolab/T3A)
+
+##Visual Examples
+
+<p align="center">
+     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/PACS_git.png" > 
+</p>
+Comparison of attention maps between the baseline ERM-ViT and our proposed ERM-SDViT (backbone: DeiT-Small) on four target domains of PACS dataset. 
+<p align="center">
+     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/Attentions_VLCS_OH.png" > 
+</p>
+Comparison of attention maps between the baseline ERM-ViT and our proposed ERM-SDViT (backbone: DeiT-Small) on four target domains of VLCS and OfficeHome dataset.
+<p align="center">
+     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/Attentions_Terra.png" > 
+</p>
+Comparison of attention maps between the baseline ERM-ViT and our proposed ERM-SDViT (backbone: DeiT-Small) on four target domains of TerraIncognita dataset.
+<p align="center">
+     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/Attentions_DomainNet.png" > 
+</p>
+Comparison of attention maps between the baseline ERM-ViT and our proposed ERM-SDViT (backbone: DeiT-Small) on six target domains of DomainNet dataset.
 
 ##Acknowledgment
 The code is build on the top of DomainBed: a PyTorch suite containing benchmark datasets and algorithms for domain generalization, as introduced in [In Search of Lost Domain Generalization](https://arxiv.org/abs/2007.01434). ViT Code is based on [T2T](https://github.com/yitu-opensource/T2T-ViT), [CVT](https://github.com/microsoft/CvT), [DeiT](https://github.com/facebookresearch/deit) repository and [TIMM](https://github.com/rwightman/pytorch-image-models) library. We thank the authors for releasing their codes.
