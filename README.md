@@ -23,9 +23,9 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 
 ### Contents  
 1) [Highlights](#Highlights) 
-2) [Quick Start](#Quick Start)
-3) [Download Datasets](#Download Datasets)
-4) [Train SDViT Models](#Train SDViT Models)
+2) [Quick Start](#Quick-Start)
+3) [Download Datasets](#Download-Datasets)
+4) [Train SDViT Models](#Train-SDViT-Models)
 5) [Evaluation](#Evaluation)
 6) [Visual Examples](#Visual-Examples)
 
