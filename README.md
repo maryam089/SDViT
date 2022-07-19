@@ -78,7 +78,7 @@ Launching a sweep on SDViT Model:
 Note: For above all commands change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet and backbone to CVTSmall or T2T14.
 
 ### Pretrained Models
-Pretrained weights for ViT models trained 
+Pretrained weights for ViT models trained (TBA)
 
 | Dataset   |                                               Baseline (ERM-ViT)                                              |                                                                                             Ours (ERM-SDViT) | 
 |:----------|:----------------------------------------------------------------------------------------------------:|-------------------------------------------------------------------------------------------------:|
