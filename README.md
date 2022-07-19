@@ -26,6 +26,7 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 2) [Quick Start](#Quick-Start)
 3) [Download Datasets](#Download-Datasets)
 4) [Train SDViT Models](#Train-SDViT-Models)
+5) [Pretrained Models](#Pretrained-Models)
 5) [Evaluation](#Evaluation)
 6) [Visual Examples](#Visual-Examples)
 
@@ -76,10 +77,25 @@ Launching a sweep on SDViT Model:
 ```
 Note: For above all commands change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet and backbone to CVTSmall or T2T14.
 
+### Pretrained Models
+Pretrained weights for ViT models trained 
+
+| Dataset   |                                               Baseline (ERM-ViT)                                              |                                                                                             Ours (ERM-SDViT) | 
+|:----------|:----------------------------------------------------------------------------------------------------:|-------------------------------------------------------------------------------------------------:|
+| PACS      |   [Link]()    |   [Link]() | 
+| VLCS | [Link]() | [Link]() | 
+| OfficeHome    |  [Link]()   |  [Link]() | 
+| TerraIncognita    |  [Link]()   |  [Link]() | 
+| DomainNet    |  [Link]()   |   [Link]() | 
+
+
+<hr />
+<hr />
+
 ### Evaluation:
 #Results Using Pre-trained Models
 To view the results using our pre-trained models:
-- Step 1: Download the pretrained models uisng this link (TBA)
+- Step 1: Download the pretrained models uisng the links in above Table
 - Step 2: Run the following command to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
@@ -87,6 +103,14 @@ python -m domainbed.scripts.collect_results\
 ````
 Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM-ViT/DeiT-Small/ and so on....) to view results on various models. Test-Time Classifier Adjuster (T3A) is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
 [T3A](https://github.com/matsuolab/T3A)
+
+**Ablation Results:**
+
+1. Accuracy on three Backbone Networks using PACS dataset.
+![results](Figures/Table_2.png)
+**SOTA Results:**
+2. Accuracy on three Backbone Networks using five benchmark datasets in comparison with DG SOTA.
+![results](Figures/Table_2.png)
 
 ### Visual Examples
 
@@ -99,13 +123,10 @@ Comparison of attention maps between the baseline ERM-ViT and our proposed ERM-S
 </p>
 Comparison of attention maps between the baseline ERM-ViT and our proposed ERM-SDViT (backbone: DeiT-Small) on four target domains of VLCS and OfficeHome dataset.
 <p align="center">
-     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/Attentions_Terra.png" > 
-</p>
-Comparison of attention maps between the baseline ERM-ViT and our proposed ERM-SDViT (backbone: DeiT-Small) on four target domains of TerraIncognita dataset.
-<p align="center">
      <img src="https://github.com/maryam089/SDViT/blob/main/Figures/Attentions_DomainNet.png" > 
 </p>
 Comparison of attention maps between the baseline ERM-ViT and our proposed ERM-SDViT (backbone: DeiT-Small) on six target domains of DomainNet dataset.
+
 
 ### Acknowledgment
 The code is build on the top of DomainBed: a PyTorch suite containing benchmark datasets and algorithms for domain generalization, as introduced in [In Search of Lost Domain Generalization](https://arxiv.org/abs/2007.01434). ViT Code is based on [T2T](https://github.com/yitu-opensource/T2T-ViT), [CVT](https://github.com/microsoft/CvT), [DeiT](https://github.com/facebookresearch/deit) repository and [TIMM](https://github.com/rwightman/pytorch-image-models) library. We thank the authors for releasing their codes.
