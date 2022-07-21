@@ -27,7 +27,7 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 3) [Datasets](#Datasets)
 4) [Training Vision Transformer with Self-Distillation](#Training-Vision-Transformer-with-Self-Distillation)
 5) [Pretrained Models](#Pretrained-Models)
-5) [Evaluation](#Evaluation)
+5) [Evaluating for Domain Generalization](#Evaluating-for-Domain-Generalization)
 6) [Visual Examples](#Visual-Examples)
 
 
@@ -94,7 +94,7 @@ Pretrained weights for ViT models trained (TBA)
 <hr />
 <hr />
 
-### Evaluation:
+### Evaluating for Domain Generalization
 #Results Using Pre-trained Models
 To view the results using our pre-trained models:
 - Step 1: Download the pretrained models uisng the links in above Table
