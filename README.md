@@ -48,7 +48,7 @@ Activate the conda environment:
 ```sh
 conda activate ViT_DGbed
 ```
-### Datasets:
+### Datasets
 
 ```sh
 python3 -m domainbed.scripts.download \
