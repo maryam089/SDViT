@@ -28,7 +28,7 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 4) [Training Vision Transformer with Self-Distillation](#Training-Vision-Transformer-with-Self-Distillation)
 5) [Pretrained Models](#Pretrained-Models)
 5) [Evaluating for Domain Generalization](#Evaluating-for-Domain-Generalization)
-6) [Attention Visualization](#Attention-Visualization)
+6) [Attention Visualizations](#Attention-Visualizations)
 
 
 ### Highlights
@@ -114,7 +114,7 @@ Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM-ViT/D
 2. Accuracy on three Backbone Networks using five benchmark datasets in comparison with DG SOTA.
 ![results](Figures/Table_2.png)
 
-### Attention Visualization
+### Attention Visualizations
 
 <p align="center">
      <img src="https://github.com/maryam089/SDViT/blob/main/Figures/PACS_git.png" > 
