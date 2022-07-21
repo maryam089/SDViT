@@ -23,8 +23,8 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 
 ### Contents  
 1) [Highlights](#Highlights) 
-2) [Quick Start](#Quick-Start)
-3) [Download Datasets](#Download-Datasets)
+2) [Installation](#Installation)
+3) [Datasets](#Datasets)
 4) [Train SDViT Models](#Train-SDViT-Models)
 5) [Pretrained Models](#Pretrained-Models)
 5) [Evaluation](#Evaluation)
@@ -39,7 +39,7 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 In the Fig. above, we plot the block-wise accuracy of baseline (ERM-ViT) and our method (ERM-SDViT). Random sub-model distillation improves the accuracy of all blocks, in particular, the improvement is more pronounced for the earlier blocks. Besides later blocks, it also encourages earlier blocks to bank on transferable representations, yet discriminative representations. Since these earlier blocks manifest multiple discriminative feature pathways, we believe that they better facilitate the overall model towards capturing the semantics of the object class.
 
 
-### Quick Start
+### Installation
 To install conda env with conda, run the following command in your terminal:
 ```sh
 conda env create -n ViT_DGbed --file ViT_DGbed.yml
@@ -48,7 +48,7 @@ Activate the conda environment:
 ```sh
 conda activate ViT_DGbed
 ```
-### Download Datasets:
+### Datasets:
 
 ```sh
 python3 -m domainbed.scripts.download \
