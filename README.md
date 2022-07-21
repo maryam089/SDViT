@@ -25,7 +25,7 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 1) [Highlights](#Highlights) 
 2) [Installation](#Installation)
 3) [Datasets](#Datasets)
-4) [Train SDViT Models](#Train-SDViT-Models)
+4) [Training Vision Transformer with Self-Distillation](#Training-Vision-Transformer-with-Self-Distillation)
 5) [Pretrained Models](#Pretrained-Models)
 5) [Evaluation](#Evaluation)
 6) [Visual Examples](#Visual-Examples)
@@ -60,7 +60,9 @@ Note: for downloading other datasets change --dataset pacs with other datasets (
 ### Model selection criteria
 We computed results on the following model selection
 * `IIDAccuracySelectionMethod`: A random subset from the input data of the training source domains.
-### Train SDViT Models:
+
+### Training Vision Transformer with Self-Distillation
+
 - Step 1: Download the pretrained models on Imagenet, such as [CVT-21](https://onedrive.live.com/?authkey=%21AMXesxbtKwsdryE&cid=56B9F9C97F261712&id=56B9F9C97F261712%2115008&parId=56B9F9C97F261712%2115004&o=OneUp), [T2T-ViT-14](https://github.com/yitu-opensource/T2T-ViT/releases/download/main/81.5_T2T_ViT_14.pth.tar)
 - Step 2: Place the models in the path ./domainbed/pretrained_models/Model_name/
 - Step 3: Run the followng commands:  
