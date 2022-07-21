@@ -95,9 +95,9 @@ Pretrained weights for ViT models trained (TBA)
 <hr />
 
 ### Evaluating for Domain Generalization
-#Results Using Pre-trained Models
+
 To view the results using our pre-trained models:
-- Step 1: Download the pretrained models uisng the links in above Table
+- Step 1: Download the pretrained models uisng the links in above Table (TBA)
 - Step 2: Run the following command to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
@@ -106,11 +106,10 @@ python -m domainbed.scripts.collect_results\
 Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM-ViT/DeiT-Small/ and so on....) to view results on various models. Test-Time Classifier Adjuster (T3A) is exploited in our proposed method as a complimentary approach, for details please refer to following instructions:
 [T3A](https://github.com/matsuolab/T3A)
 
-**Ablation Results:**
+**Results:**
 
 1. Accuracy on three Backbone Networks using PACS dataset.
 ![results](Figures/Table_2.png)
-**SOTA Results:**
 2. Accuracy on three Backbone Networks using five benchmark datasets in comparison with DG SOTA.
 ![results](Figures/Table_2.png)
 
