@@ -32,7 +32,8 @@ If you find our work useful. Please consider giving a star :star: and cite our w
 
 
 ### Highlights
-
+- Inspired by the modular architecture of ViTs, we propose a light-weight plug-and-play DG approach for ViTs, namely self-distillation for ViT (SDViT). It explicitly encourages the model towards learning generalizable, comprehensive features.
+- We show that by improving the intermediate blocks, which are essentially multiple feature pathways, through soft supervision from final classifier facilitates the model towards learning crossdomain generalizable features. Our approach naturally fits into the modular and compositional architecture of different ViTs, and does not introduce any new parameters. As such it adds a minimal training overhead over the baseline.
 <p align="center">
      <img src="https://github.com/maryam089/SDViT/blob/main/Figures/blockwise_accuracy_git.png" > 
 </p>
