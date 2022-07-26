@@ -17,7 +17,22 @@ Proposed self-distillation in ViTs for domain generalization (ERM-SDViT). ViTs b
 ## Citation
 If you find our work useful. Please consider giving a star :star: and cite our work. (TBA)
 ```bibtex
-@InProceedings{
+@misc{https://doi.org/10.48550/arxiv.2207.12392,
+  doi = {10.48550/ARXIV.2207.12392},
+  
+  url = {https://arxiv.org/abs/2207.12392},
+  
+  author = {Sultana, Maryam and Naseer, Muzammal and Khan, Muhammad Haris and Khan, Salman and Khan, Fahad Shahbaz},
+  
+  keywords = {Computer Vision and Pattern Recognition (cs.CV), Artificial Intelligence (cs.AI), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {Self-Distilled Vision Transformer for Domain Generalization},
+  
+  publisher = {arXiv},
+  
+  year = {2022},
+  
+  copyright = {Creative Commons Attribution 4.0 International}
 }
 ```
 
