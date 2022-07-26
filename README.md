@@ -15,7 +15,7 @@ Proposed self-distillation in ViTs for domain generalization (ERM-SDViT). ViTs b
 
 
 ## Citation
-If you find our work useful. Please consider giving a star :star: and cite our work.
+If you find our work useful. Please consider giving a star :star: and a citation.
 ```bibtex
 @misc{https://doi.org/10.48550/arxiv.2207.12392,
   doi = {10.48550/ARXIV.2207.12392},
