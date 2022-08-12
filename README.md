@@ -11,7 +11,7 @@ Proposed self-distillation in ViTs for domain generalization (ERM-SDViT). ViTs b
 
 
 ## News Updates
-- SDViT pre-trained models will be available after (2/08/2022).
+- SDViT pre-trained models will are available (12/08/2022).
 
 
 ## Citation
@@ -85,15 +85,15 @@ Launching a sweep on SDViT Model:
 Note: For above all commands change --dataset PACS for training on other datasets such as OfficeHome, VLCS, TerraIncognita and DomainNet and backbone to CVTSmall or T2T14.
 
 ### Pretrained Models
-Pretrained weights for ViT models trained (TBA)
+Pretrained ViT models:
 
 | Dataset   |                                               Baseline (ERM-ViT)                                              |                                                                                             Ours (ERM-SDViT) | 
 |:----------|:----------------------------------------------------------------------------------------------------:|-------------------------------------------------------------------------------------------------:|
-| PACS      |   [Link]()    |   [Link]() | 
-| VLCS | [Link]() | [Link]() | 
-| OfficeHome    |  [Link]()   |  [Link]() | 
-| TerraIncognita    |  [Link]()   |  [Link]() | 
-| DomainNet    |  [Link]()   |   [Link]() | 
+| PACS      |   [Link](https://drive.google.com/file/d/1m2_RP6nFm0uGJKyYPUIGa1ZYseV8Ak5j/view?usp=sharing)    |   [Link](https://drive.google.com/file/d/1jD8nD8b8Ki09YhOAx0mINEOYd4D3L9Gp/view?usp=sharing) | 
+| VLCS | [Link](https://drive.google.com/file/d/1DaWhn5pqtEQPple59oNwfPrdtN0OBmRG/view?usp=sharing) | [Link](https://drive.google.com/file/d/1UOq-8AS_o_KhyIqHBGIaFSJkrbli9kXC/view?usp=sharing) | 
+| OfficeHome    |  [Link](https://drive.google.com/file/d/1jVWSCNFAiL7MPi3vqGmcHp1QC2sBJJPr/view?usp=sharing)   |  [Link](https://drive.google.com/file/d/1r-V4HbrXscI3nQcsMA2Zo-45i7O6K8Zk/view?usp=sharing) | 
+| TerraIncognita    |  [Link](https://drive.google.com/file/d/1qBuyTTw2eAvqQDrZ4pT0tSBzWqtVrE5s/view?usp=sharing)   |  [Link](https://drive.google.com/file/d/194PM4-HPgq8Udejyhfc0yX53nEpUcgXX/view?usp=sharing) | 
+| DomainNet    |  [Link](https://drive.google.com/file/d/1cqZiMUXVekLCpLeVeQyRvr4JEFnfHkVs/view?usp=sharing)   |   [Link](https://drive.google.com/file/d/1X2T60Ub3cvrkqWWRvt5tlom59P-vR_zw/view?usp=sharing) | 
 
 
 <hr />
@@ -102,7 +102,7 @@ Pretrained weights for ViT models trained (TBA)
 ### Evaluating for Domain Generalization
 
 To view the results using our pre-trained models:
-- Step 1: Download the pretrained models uisng the links in above Table (TBA)
+- Step 1: Download the pretrained models uisng the links in above Table
 - Step 2: Run the following command to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
