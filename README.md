@@ -102,7 +102,7 @@ Pretrained ViT models:
 ### Evaluating for Domain Generalization
 
 To view the results using our pre-trained models:
-- Step 1: Download the pretrained models uisng the links in above Table
+- Step 1: Download the pretrained models uisng the links in above Table and place them dataset wise under the folder `Results'
 - Step 2: Run the following command to get outputs
 ````sh
 python -m domainbed.scripts.collect_results\
