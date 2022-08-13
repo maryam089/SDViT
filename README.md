@@ -4,7 +4,10 @@
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2207.12392)
 > **Abstract:** *In recent past, several domain generalization (DG) methods have been proposed, showing encouraging performance, however, almost all of them build on convolutional neural networks (CNNs). There is little to no progress on studying the DG performance of vision transformers (ViTs), which are challenging the supremacy of CNNs on standard benchmarks, often built on i.i.d assumption. This renders the real-world deployment of ViTs doubtful. In this paper, we attempt to explore ViTs towards addressing the DG problem. Similar to CNNs, ViTs also struggle in out-of-distribution scenarios and the main culprit is overfitting to source domains. Inspired by the modular architecture of ViTs, we propose a simple DG approach for ViTs, coined as self-distillation for ViTs. It reduces the overfitting to source domains by easing the learning of input-output mapping problem through curating non-zero entropy supervisory signals for intermediate transformer blocks. Further, it does not introduce any new parameters and can be seamlessly plugged into the modular composition of different ViTs. We empirically demonstrate notable performance gains with different DG baselines and various ViT backbones in five challenging datasets. Moreover, we report favorable performance against recent state-of-the-art DG methods. Our code along with pre-trained models are made available publicly.*
 
-
+<p align="center">
+     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/proposed_method_git.png" > 
+</p>
+Proposed self-distillation in ViTs for domain generalization (ERM-SDViT). ViTs build upon a modular and a hierarchical architecture, where a model is comprised of $n$ intermediate blocks/layers f_{i} and a final classifier h. The 'Selector' chooses a random block from the range of intermediate blocks and makes a prediction after passing its classification token through the final classifier. This way the dark knowledge, as non-zero entropy signals, is distilled from the final classification token to the intermediate class tokens during training.
 
 
 ## Whats New
@@ -34,10 +37,6 @@ If you find our work useful. Please consider giving a star :star: and a citation
 
 ### Highlights
 - Inspired by the modular architecture of ViTs, we propose a light-weight plug-and-play DG approach for ViTs, namely self-distillation for ViT (SDViT). It explicitly encourages the model towards learning generalizable, comprehensive features.
-<p align="center">
-     <img src="https://github.com/maryam089/SDViT/blob/main/Figures/proposed_method_git.png" > 
-</p>
-Proposed self-distillation in ViTs for domain generalization (ERM-SDViT). ViTs build upon a modular and a hierarchical architecture, where a model is comprised of $n$ intermediate blocks/layers f_{i} and a final classifier h. The 'Selector' chooses a random block from the range of intermediate blocks and makes a prediction after passing its classification token through the final classifier. This way the dark knowledge, as non-zero entropy signals, is distilled from the final classification token to the intermediate class tokens during training.
 - We show that by improving the intermediate blocks, which are essentially multiple feature pathways, through soft supervision from final classifier facilitates the model towards learning crossdomain generalizable features. Our approach naturally fits into the modular and compositional architecture of different ViTs, and does not introduce any new parameters. As such it adds a minimal training overhead over the baseline.
 <p align="center">
      <img src="https://github.com/maryam089/SDViT/blob/main/Figures/blockwise_accuracy_git.png" > 
