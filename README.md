@@ -5,35 +5,35 @@
 > **Abstract:** *In recent past, several domain generalization (DG) methods have been proposed, showing encouraging performance, however, almost all of them build on convolutional neural networks (CNNs). There is little to no progress on studying the DG performance of vision transformers (ViTs), which are challenging the supremacy of CNNs on standard benchmarks, often built on i.i.d assumption. This renders the real-world deployment of ViTs doubtful. In this paper, we attempt to explore ViTs towards addressing the DG problem. Similar to CNNs, ViTs also struggle in out-of-distribution scenarios and the main culprit is overfitting to source domains. Inspired by the modular architecture of ViTs, we propose a simple DG approach for ViTs, coined as self-distillation for ViTs. It reduces the overfitting to source domains by easing the learning of input-output mapping problem through curating non-zero entropy supervisory signals for intermediate transformer blocks. Further, it does not introduce any new parameters and can be seamlessly plugged into the modular composition of different ViTs. We empirically demonstrate notable performance gains with different DG baselines and various ViT backbones in five challenging datasets. Moreover, we report favorable performance against recent state-of-the-art DG methods. Our code along with pre-trained models are made available publicly.*
 
 
-## State-of-the-Art Vision Transformer for Domain Generalization
+## Whats New
 **PACS**
-* `cvt-21` -   88.9 ± 0.5 @ 224
-* `deit-small` - 86.7 ± 0.2 @224
-* `T2T14` -  87.8 ± 0.6 @224
+* `CvT-21` -   88.9 ± 0.5 @ 224
+* `DeiT-Small` - 86.7 ± 0.2 @224
+* `T2T-ViT-14` -  87.8 ± 0.6 @224
 <hr>
 
 **VLCS**
-* `cvt-21` -  81.9 ± 0.4 @ 224
-* `deit-small` - 81.6 ± 0.1 @224
-* `T2T14` - 81.2 ± 0.3 @224
+* `CvT-21` -  81.9 ± 0.4 @ 224
+* `DeiT-Small` - 81.6 ± 0.1 @224
+* `T2T-ViT-14` - 81.2 ± 0.3 @224
 <hr>
 
 **OfficeHome**
-* `cvt-21` -  77.0 ± 0.2 @ 224
-* `deit-small` - 72.5 ± 0.3 @224
-* `T2T14` - 75.5 ± 0.2 @224
+* `CvT-21` -  77.0 ± 0.2 @ 224
+* `DeiT-Small` - 72.5 ± 0.3 @224
+* `T2T-ViT-14` - 75.5 ± 0.2 @224
 <hr>
 
 **TerraIncognita**
-* `cvt-21` -  51.4 ± 0.7 @ 224
-* `deit-small` - 44.9 ± 0.4 @224
-* `T2T14` - 50.5 ± 0.6 @224
+* `CvT-21` -  51.4 ± 0.7 @ 224
+* `DeiT-Small` - 44.9 ± 0.4 @224
+* `T2T-ViT-14` - 50.5 ± 0.6 @224
 <hr>
 
 **DomainNet**
-* `cvt-21` -  52.0 ± 0.0 @ 224
-* `deit-small` - 47.4 ± 0.1 @224
-* `T2T14` - 50.2 ± 0.1 @224
+* `CvT-21` -  52.0 ± 0.0 @ 224
+* `Deit-Small` - 47.4 ± 0.1 @224
+* `T2T-ViT-14` - 50.2 ± 0.1 @224
 <hr>
 
 ## Citation
