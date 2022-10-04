@@ -139,7 +139,7 @@ Note: Replace the text with dataset and model names (e.g: Results/PACS/ERM-ViT/D
 1. Accuracy on three Backbone Networks using PACS dataset.
 ![results](Figures/Table_2.png)
 2. Accuracy on three Backbone Networks using five benchmark datasets in comparison with DG SOTA.
-![results](Figures/T.png)
+![results](Figures/Table_1.png)
 
 ### Attention Visualizations
 
