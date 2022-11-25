@@ -39,12 +39,13 @@
 ## Citation
 If you find our work useful. Please consider giving a star :star: and a citation.
 ```bibtex
-@InProceedings{sultana2022self,
-  title={Self-Distilled Vision Transformer for Domain Generalization},
-  author={Sultana, Maryam and Naseer, Muzammal and Khan, Muhammad Haris and Khan, Salman and Khan, Fahad Shahbaz},
-  booktitle={Proceedings of the Asian Conference on Computer Vision (ACCV)},
-  month={December},
-  year={2022}
+@InProceedings{Sultana_2022_ACCV,
+    author    = {Sultana, Maryam and Naseer, Muzammal and Khan, Muhammad Haris and Khan, Salman and Khan, Fahad Shahbaz},
+    title     = {Self-Distilled Vision Transformer for Domain Generalization},
+    booktitle = {Proceedings of the Asian Conference on Computer Vision (ACCV)},
+    month     = {December},
+    year      = {2022},
+    pages     = {3068-3085}
 }
 ```
 
