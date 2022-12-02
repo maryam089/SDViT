@@ -3,7 +3,7 @@
 
 [![paper](https://img.shields.io/badge/CVF-Paper-<COLOR>.svg)](https://openaccess.thecvf.com/content/ACCV2022/html/Sultana_Self-Distilled_Vision_Transformer_for_Domain_Generalization_ACCV_2022_paper.html) 
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/pdf/2207.12392.pdf) 
-[![paper](https://img.shields.io/badge/Poster-Paper-<COLOR>.svg)](https://drive.google.com/file/d/1MBe7aM6M9sNhbv6f94d7UkvzseJJDw2i/view?usp=share_link) 
+[![Poster](https://img.shields.io/badge/Poster-PDF-8333FF)](https://drive.google.com/file/d/1MBe7aM6M9sNhbv6f94d7UkvzseJJDw2i/view?usp=share_link) 
 [![Slides](https://img.shields.io/badge/Slides-PDF-87CEEB)](https://drive.google.com/file/d/1tM8CNjyM1EorlwA-Qv8LBmWO8Adf0MiN/view?usp=share_link)
 [![Video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://drive.google.com/file/d/1P0HsmlZSwX94fYs72UP9vcFeYGp7ZDeF/view?usp=share_link)
 
